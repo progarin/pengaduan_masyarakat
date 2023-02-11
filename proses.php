@@ -9,10 +9,11 @@ if (!isset($_SESSION['status_login'])) {
 
 if (isset($_POST['submit'])) {
 
+    $title = $_POST['judul'];
     $date = date('y-m-d');
     $nik = $_SESSION['nik'];
     $isi = $_POST['isi'];
-    $status = 0;
+    $status = '0';
 
     $foto = $_FILES['foto']['name'];
     $tmp = $_FILES['foto']['tmp_name'];
@@ -21,9 +22,11 @@ if (isset($_POST['submit'])) {
 
     move_uploaded_file($tmp, $location . $fotoName);
 
-    $query = "INSERT INTO pengaduan (id_pengaduan, tgl_pengaduan , nik, isi_laporan, foto, status) VALUES (NULL , '$date' , '$nik' , '$isi' , '$fotoName' , '$status')";
+    $query = "INSERT INTO pengaduan (id_pengaduan , judul , tgl_pengaduan , nik, isi_laporan, foto, status) VALUES (NULL , '$title' , '$date' , '$nik' , '$isi' , '$fotoName' , '$status')";
 
     if (mysqli_query($config, $query)) {
-        header("Location:index.php");
+        header("Location:laporan.php");
+    } else {
+        echo "tolol";
     }
 }

@@ -1,10 +1,13 @@
 <?php
 
 session_start();
+require 'config.php';
 
 if (!isset($_SESSION['status_login'])) {
     header("Location: login.php");
 }
+
+
 
 ?>
 
@@ -50,6 +53,12 @@ if (!isset($_SESSION['status_login'])) {
                                 Buat Laporan
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="laporan.php">
+                                <span data-feather="file"></span>
+                                Laporan
+                            </a>
+                        </li>
                         <li class="nav-item mb-3">
                             <a class="nav-link" href="#">
                                 <span data-feather="shopping-cart"></span>
@@ -74,7 +83,13 @@ if (!isset($_SESSION['status_login'])) {
                     <div class="row justify-content-center">
                         <div class="col-sm-3 p-4 bg-primary mx-3 text-white shadow-sm border border-info rounded-3 ">
                             <h4>Laporan Terkirim</h4>
-                            <h5>5</h5>
+                            <h5>
+                                <?php
+                                $nik = $_SESSION['nik'];
+                                $dataReport = mysqli_query($config, "SELECT * FROM pengaduan WHERE nik='$nik'");
+
+                                echo mysqli_num_rows($dataReport); ?>
+                            </h5>
                         </div>
                         <div class="col-sm-3 p-4 bg-warning mx-3 text-white shadow-sm border border-danger rounded-3 ">
                             <h4>Laporan Diproses</h4>
